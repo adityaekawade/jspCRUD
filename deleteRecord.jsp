@@ -12,7 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Delete record page !</h1>
+        <header>
+        <nav class="navbar navbar-default" style="background-color: #cc0000; border-bottom: 15px solid #333; height:80px">
+                <a class="navbar-brand" style="padding:1px 15px" href="#"><img src="ulogo_white.png"></a>
+        </nav>
+        </header>
+        
         <%
             String u_id = request.getParameter("id");
             int id = Integer.parseInt(u_id); 
@@ -27,7 +32,7 @@
                 
                 conn = DbConnection.getConnection();
                 
-                String query = "DELETE FROM login1 WHERE id=?"; 
+                String query = "DELETE FROM records WHERE id=?"; 
                 
                 ps = conn.prepareStatement(query); 
                 
@@ -36,9 +41,16 @@
                 row = ps.executeUpdate(); 
                 
                 if( row > 0){
-                    out.println("record deleted" + row); 
-                    out.print("<a href='crudexample.jsp'> Add more </a>  ");
-                    
+
+                %>
+                <center>
+                    <h2>Record deleted successfully. </h2>
+                    <center><button class="btn btn-default"><a href="crudexample.jsp">Add records</a> </button></center>
+                    <br>
+                    <center><button class="btn btn-default"><a href="viewRecords.jsp">View or Edit Records</a> </button></center>
+
+                </center>
+                <%
                 }
                 else {
                     out.println("error in query"); 
